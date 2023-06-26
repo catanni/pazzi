@@ -1,7 +1,15 @@
+import 'package:banco/view/login.dart';
+import 'package:banco/view/saque_screen.dart';
+import 'package:banco/view/transferencia_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'deposito_screen.dart';
+import 'extrato_screen.dart';
+
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required account1});
+
+  get account1 => null;
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +19,18 @@ class HomeScreen extends StatelessWidget {
         preferredSize: const Size.fromHeight(150),
         child: AppBar(
           backgroundColor: Colors.deepPurple,
-          flexibleSpace: Column(
+          flexibleSpace: const Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 25.0, left: 20.0),
+                padding: EdgeInsets.only(bottom: 25.0, left: 20.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'certo',
                     //'Olá, ${account1?.name}',
-                    style: const TextStyle(
-                      fontSize: 18,
+                    style: TextStyle(
+                      fontSize: 26,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -34,7 +42,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      /*body: Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -47,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                   const Text(
                     'Conta',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -58,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     'R\$ ${account1?.balance.toStringAsFixed(2)}',
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -69,18 +77,18 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         minimumSize: const Size(50, 50),
                         backgroundColor: const Color.fromARGB(255, 44, 43, 43)),
-                    child: const Icon(Icons.money, size: 40),
+                    child: const Icon(Icons.money, size: 60),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -103,21 +111,21 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   const Text(
                     'Saque',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 50),
               Column(
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         minimumSize: const Size(50, 50),
                         backgroundColor: const Color.fromARGB(255, 44, 43, 43)),
-                    child: const Icon(Icons.attach_money, size: 40),
+                    child: const Icon(Icons.attach_money, size: 60),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -139,43 +147,62 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   const Text(
                     'Deposito',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
               ),
-              const SizedBox(width: 20),
+            ],
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
               Column(
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         minimumSize: const Size(50, 50),
                         backgroundColor: const Color.fromARGB(255, 44, 43, 43)),
-                    child: const Icon(Icons.swap_horiz, size: 40),
+                    child: const Icon(Icons.swap_horiz, size: 60),
                     onPressed: () {
-                      // Lógica para ação de transferência
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      ).then((_) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(
+                              account1: account1,
+                            ),
+                          ),
+                        );
+                      });
                     },
                   ),
                   const SizedBox(height: 10),
                   const Text(
                     'Transferencia',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 40),
               Column(
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         minimumSize: const Size(50, 50),
                         backgroundColor: const Color.fromARGB(255, 44, 43, 43)),
-                    child: const Icon(Icons.list, size: 40),
+                    child: const Icon(Icons.list, size: 60),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -197,15 +224,42 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   const Text(
                     'Extrato',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ],
               ),
             ],
-          ),
+          )
         ],
       ),
-    */
+      bottomNavigationBar: BottomNavigationBar(
+        //currentIndex: _itemSelecionado,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.green,
+        items: const [
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            label: 'Saque',
+            icon: Icon(Icons.money),
+          ),
+          BottomNavigationBarItem(
+            label: 'Despósito',
+            icon: Icon(Icons.attach_money),
+          ),
+          BottomNavigationBarItem(
+            label: 'Transferência',
+            icon: Icon(Icons.swap_horiz),
+          ),
+          BottomNavigationBarItem(
+            label: 'Extrato',
+            icon: Icon(Icons.list),
+          ),
+        ],
+        //onTap: _alterarBottomNav,
+      ),
     );
   }
 }
